@@ -42,6 +42,7 @@ export default class HelloWorldSceneAR extends Component {
     this._onClick = this._onClick.bind(this);
     this._onClickBox = this._onClickBox.bind(this);
     this._onHover = this._onHover.bind(this);
+    this._loadedObject = this._loadedObject.bind(this);
   }
 
   render() {
@@ -58,7 +59,8 @@ export default class HelloWorldSceneAR extends Component {
             position={[0,0.01,0]}
             rotation={[270,0,0]}
           />
-
+          {this._loadedObject()}
+          {this._loadedPerson()}
         <ViroAmbientLight color="#ffffff" />
 
         </ViroARImageMarker>
@@ -67,8 +69,31 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   _loadedObject(){
-    console.log("Carregou")
+      return (
+        <ViroBox
+        position={[0,0.03,0]}
+        scale={[0.05,0.05,0.05]}
+        />
+      );
   }
+
+  _loadedPerson(){
+    return (
+      <ViroNode
+      position={[0.1,0.01,0.1]}
+      >
+        <Viro3DObject
+        source={require('./res/man/00079_Nash002_Basics_Free.obj')}
+        resources={[
+          require('./res/man/00079_Nash002_Basics_Free.mtl'),
+          require('./res/man/00079_Nash002_Diffuse.jpg'),
+        ]}
+        scale={[0.0025,0.0025,0.0025]}
+        type='OBJ'
+        />
+      </ViroNode>
+    );
+}
 
   _loadingObject(){
     console.log("Carregando")

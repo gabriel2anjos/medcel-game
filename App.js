@@ -8,6 +8,10 @@
  */
 
 import React, { Component } from 'react';
+
+import ButtonComponent from './js/Components/ActionButtons';
+
+
 import {
   AppRegistry,
   Text,
@@ -69,7 +73,7 @@ export default class ViroSample extends Component {
             initialScene={{scene: InitialARScene}} />
         <View style={localStyles.crosshair}/>
         <View style={localStyles.buttonsColumn}>
-        { this.state.visible1 ? (
+        {/* { this.state.visible1 ? (
         <Image
         style= {{flex:1 , width: undefined, height: undefined, resizeMode: 'contain',}}
         source={require('./js/res/stethos.png')}
@@ -81,7 +85,14 @@ export default class ViroSample extends Component {
         source={require('./js/res/dialogue.png')}
         />
         ): null
-        }
+        } */}
+        <View style={localStyles.screenIcon}></View>
+        <ButtonComponent key="button_models"
+          onPress={()=>{console.log("clicou")}}
+          buttonState={'off'}
+          stateImageArray={[require('./js/res/dialogue.png'), require('./js/res/dialogue.png')]}
+          style={localStyles.screenIcon} selected={'false'}
+          />
           </View>
       </View>
 
@@ -107,14 +118,16 @@ var localStyles = StyleSheet.create({
     flexDirection: 'column',
     alignItems:'center',
   },
-  buttonsColumn: {position:'absolute', 
-                  flexDirection:'column',
-                  justifyContent: 'space-around',
-                  right:10,
-                  bottom:120,
-                  width:50,
-                  height:140,
-                  flex:1
+  buttonsColumn: {
+    position:'absolute', 
+    flexDirection:'column',
+    justifyContent: 'space-around',
+    right:10,
+    bottom:120,
+    width:50,
+    height:140,
+    flex:1,
+    backgroundColor: 'red'
                 },
   crosshair: {
     position: 'absolute',
@@ -124,8 +137,12 @@ var localStyles = StyleSheet.create({
     height: 5,
     borderRadius: 5,
     borderWidth: 1,
-    backgroundColor: 'grey',
   },
+  screenIcon: {
+    aspectRatio: 1,
+    resizeMode: 'contain',
+    backgroundColor:'blue'
+  }
 });
 
 module.exports = ViroSample
