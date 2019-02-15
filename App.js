@@ -49,7 +49,8 @@ export default class ViroSample extends Component {
     this.state = {
       sharedProps : sharedProps,
       visible1: true,
-      visible2:false,
+      visible2:true,
+      text:"Nao achou",
     }
     this._getARNavigator = this._getARNavigator.bind(this);
     this._exitViro = this._exitViro.bind(this);
@@ -65,34 +66,33 @@ export default class ViroSample extends Component {
 
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
-    console.log(this.state.visible1)
     return (
       <View style={{ flex: 1 }}>
             <ViroARSceneNavigator {...this.state.sharedProps}
             style ={{flex:1}}
-            initialScene={{scene: InitialARScene}} />
+            initialScene={{scene: InitialARScene}}
+            viroAppProps={this.state}
+            objectHover={(state, obj)=>console.log(state, obj)}
+            />
         <View style={localStyles.crosshair}/>
+        <View style={localStyles.centerTextView}>
+          <Text style={localStyles.centerText}> {this.state.text}</Text>
+        </View>
         <View style={localStyles.buttonsColumn}>
-        {/* { this.state.visible1 ? (
-        <Image
-        style= {{flex:1 , width: undefined, height: undefined, resizeMode: 'contain',}}
-        source={require('./js/res/stethos.png')}
-        />): null
-        }
-        { this.state.visible2 ? (
-        <Image 
-        style={{flex:1 , width: undefined, height: undefined, resizeMode: 'contain',}}
-        source={require('./js/res/dialogue.png')}
-        />
-        ): null
-        } */}
-        <View style={localStyles.screenIcon}></View>
-        <ButtonComponent key="button_models"
+        {this.state.visible ? (<ButtonComponent key="button_touch"
           onPress={()=>{console.log("clicou")}}
           buttonState={'off'}
           stateImageArray={[require('./js/res/dialogue.png'), require('./js/res/dialogue.png')]}
-          style={localStyles.screenIcon} selected={'false'}
-          />
+          style={localStyles.screenIcon} selected={false}
+          />): null}
+
+          {this.state.visible2 ? (<ButtonComponent key="button_talk"
+          onPress={()=>{console.log("clicou2")}}
+          buttonState={'off'}
+          stateImageArray={[require('./js/res/dialogue.png'), require('./js/res/dialogue.png')]}
+          style={localStyles.screenIcon} selected={false}
+          />): null}
+
           </View>
       </View>
 
@@ -127,7 +127,6 @@ var localStyles = StyleSheet.create({
     width:50,
     height:140,
     flex:1,
-    backgroundColor: 'red'
                 },
   crosshair: {
     position: 'absolute',
@@ -138,9 +137,18 @@ var localStyles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
   },
+  centerTextView: {
+    position: 'absolute',
+    top: (Dimensions.get('window').height / 2),
+    left: (Dimensions.get('window').width / 2),
+  },
+  centerText: {
+    color: 'grey',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
   screenIcon: {
     aspectRatio: 1,
-    resizeMode: 'contain',
     backgroundColor:'blue'
   }
 });

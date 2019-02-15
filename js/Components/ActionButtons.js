@@ -15,7 +15,6 @@ class ButtonComponent extends Component {
 
 
     constructor(props) {
-        console.log("construindo")
         super(props);
         this.scaleValue = new Animated.Value(0);
         this.fadeInValue = new Animated.Value(0);
@@ -40,18 +39,16 @@ class ButtonComponent extends Component {
   
     componentDidMount() {
       if (this.props.selected) {
-          console.log("montado")
           this.fadeInValue.setValue(1);
       }
     }
 
     render() {
     return (
-      <TouchableHighlight underlayColor="#00000000" onPress={this._onPress}>
+      <TouchableHighlight underlayColor="#00000000" onPress={this._onPress} style={this.props.style}>
         <View 
-        style={this.props.style}
         >
-          <Image source={this.props.stateImageArray[0]}
+          {/* <Image source={this.props.stateImageArray[0]}
           
           />
             <Animated.Image 
@@ -65,7 +62,7 @@ class ButtonComponent extends Component {
                       ]} />
             <Animated.Image 
               source={this.props.stateImageArray[0]}
-              style={[this.props.style, {opacity: this.opacity}]} />
+              style={[this.props.style, {opacity: this.opacity}]} /> */}
         </View>
       </TouchableHighlight>
       );
@@ -77,13 +74,11 @@ class ButtonComponent extends Component {
     }    
   }
   _onPress() {
-    console.log("apertado")
     if (this.props.buttonState === 'off') {
       this.scale();
-
-      // from https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive
+      this.props.onPress();   
       requestAnimationFrame(() => {
-        this.props.onPress();   
+ 
       });
     }
   }

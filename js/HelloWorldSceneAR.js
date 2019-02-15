@@ -46,12 +46,12 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
-
+    console.log(this.props)
     return (
 
       <ViroARScene onTrackingUpdated={this._onInitialized} onClick={this._onClick} ref={(component)=>{this.sceneRef = component}} physicsWorld={{gravity:[0, -9.81, 0],drawBounds:true}}>
         <ViroAmbientLight color="#ffffff" />
-        <ViroARImageMarker target={"logo"} onAnchorFound={this._anchorFound} >
+        <ViroARImageMarker target={"logo"} onAnchorFound={this._anchorFound(this.props)} >
         <ViroImage
             height={.4}
             width={.4}
@@ -73,6 +73,8 @@ export default class HelloWorldSceneAR extends Component {
         <ViroBox
         position={[0,0.03,0]}
         scale={[0.05,0.05,0.05]}
+        onHover={this._onHover}
+        ref={"box"}
         />
       );
   }
@@ -90,6 +92,8 @@ export default class HelloWorldSceneAR extends Component {
         ]}
         scale={[0.0025,0.0025,0.0025]}
         type='OBJ'
+        ref={ "person"}
+        onHover={this._onHover}
         />
       </ViroNode>
     );
@@ -113,16 +117,11 @@ export default class HelloWorldSceneAR extends Component {
     console.log("Fuse: ", source);
   }
   _onHover (isHovering, pos,source){
-    console.log("gabriel")
     if(isHovering){
-      this.setState({
-        stetosVisible:true,
-      });
+      this.props.objectHover(true, source);
     }
     else{
-      this.setState({
-        stetosVisible:false,
-      });
+      this.props.objectHover(false, source);
     }
   }
   _onClick(state, reason) {
@@ -140,7 +139,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   _anchorFound(){
-    console.log("achou")
+    console.log("=======")
   }
   _anchorRemoved(){
     console.log("tirou")

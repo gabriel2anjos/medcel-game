@@ -1,0 +1,4 @@
+#Fri Feb 15 11:42:49 BRST 2019
+base.0=/Users/gabriel/Gabriel/medcel_game_git/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
