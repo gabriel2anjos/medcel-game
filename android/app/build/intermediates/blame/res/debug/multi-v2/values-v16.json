@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/gabriel/Gabriel/medcel_game_git/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
+            "outputFile": "/home/gabriel/Documents/Medcel/medcel-game/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/gabriel/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/74290c894370695543ac45640ac86265/res/values-v16/values-v16.xml",
+                    "source": "/home/gabriel/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/9f664f2891b239451e3fa6bb7f927a49/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/gabriel/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d2e960156555b258461d4f932648e3e1/res/values-v16/values-v16.xml",
+                    "source": "/home/gabriel/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/5214a87bb7c3474620d006dd397de725/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

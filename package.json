@@ -11,14 +11,12 @@
     "ngrok": "^3.1.0",
     "react": "16.6.1",
     "react-native": "0.57.7",
-    "react-viro": "2.13.0",
-    "react-devtool": "react-devtools"
+    "react-viro": "2.13.0"
   },
   "devDependencies": {
     "babel-jest": "24.0.0",
     "jest": "24.0.0",
     "metro-react-native-babel-preset": "0.51.1",
-    "react-devtools": "^3.6.0",
     "react-test-renderer": "16.6.1"
   },
   "jest": {
