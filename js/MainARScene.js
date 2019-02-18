@@ -25,7 +25,7 @@ import {
 } from 'react-viro';
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-export default class HelloWorldSceneAR extends Component {
+export default class MainARScene extends Component {
   
   constructor(props) {
     super(props);
@@ -42,16 +42,14 @@ export default class HelloWorldSceneAR extends Component {
     this._onClick = this._onClick.bind(this);
     this._onClickBox = this._onClickBox.bind(this);
     this._onHover = this._onHover.bind(this);
-    this._loadedObject = this._loadedObject.bind(this);
+    this._loadedBed = this._loadedBed.bind(this);
   }
 
   render() {
-    console.log(this.props)
     return (
-
-      <ViroARScene onTrackingUpdated={this._onInitialized} onClick={this._onClick} ref={(component)=>{this.sceneRef = component}} physicsWorld={{gravity:[0, -9.81, 0],drawBounds:true}}>
+      <ViroARScene onTrackingUpdated={this._onInitialized} onClick={this._onClick} ref={(component)=>{this.sceneRef = component}} >
         <ViroAmbientLight color="#ffffff" />
-        <ViroARImageMarker target={"logo"} onAnchorFound={this._anchorFound(this.props)} >
+        <ViroARImageMarker target={"logo"} onAnchorFound={this._anchorFound()} >
         <ViroImage
             height={.4}
             width={.4}
@@ -59,7 +57,7 @@ export default class HelloWorldSceneAR extends Component {
             position={[0,0.01,0]}
             rotation={[270,0,0]}
           />
-          {this._loadedObject()}
+          {this._loadedBed()}
           {this._loadedPerson()}
         <ViroAmbientLight color="#ffffff" />
 
@@ -68,21 +66,29 @@ export default class HelloWorldSceneAR extends Component {
     );
   }
 
-  _loadedObject(){
+  _loadedBed(){
       return (
-        <ViroBox
-        position={[0,0.03,0]}
-        scale={[0.05,0.05,0.05]}
+        <ViroNode
+        position={[0.1,0.01,0.1]}
+        >
+        <Viro3DObject
+        source={require('./res/foldbed/Folding_Bed.obj')}
+        resources={[
+          require('./res/foldbed/Folding_Bed.mtl'),
+        ]}
+        scale={[0.0025,0.0025,0.0025]}
+        type='OBJ'
+        ref={ "person"}
         onHover={this._onHover}
-        ref={"box"}
         />
+      </ViroNode>
       );
   }
 
   _loadedPerson(){
     return (
       <ViroNode
-      position={[0.1,0.01,0.1]}
+      position={[-0.1,0.01,-0.1]}
       >
         <Viro3DObject
         source={require('./res/man/00079_Nash002_Basics_Free.obj')}
@@ -117,12 +123,7 @@ export default class HelloWorldSceneAR extends Component {
     console.log("Fuse: ", source);
   }
   _onHover (isHovering, pos,source){
-    if(isHovering){
-      this.props.objectHover(true, source);
-    }
-    else{
-      this.props.objectHover(false, source);
-    }
+    this.props.arSceneNavigator.viroAppProps.onHoverCallback(source, isHovering);
   }
   _onClick(state, reason) {
     console.log("click");
@@ -139,7 +140,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   _anchorFound(){
-    console.log("=======")
+    console.log("Ancorou")
   }
   _anchorRemoved(){
     console.log("tirou")
@@ -164,7 +165,7 @@ var styles = StyleSheet.create({
 
 ViroARTrackingTargets.createTargets({
   logo : {
-    source : require('./res/qr-code.png'),
+    source : require('./res/qrcode.png'),
     orientation : "Up",
     physicalWidth : 0.165 // real world width in meters
   }
@@ -196,4 +197,4 @@ ViroAnimations.registerAnimations({
                   duration: 1500, easing: "bounce"},
 });
   
-module.exports = HelloWorldSceneAR;
+module.exports = MainARScene;

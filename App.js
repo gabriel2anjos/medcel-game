@@ -36,7 +36,7 @@ var sharedProps = {
 }
 
 // Sets the default scene you want for AR and VR
-var InitialARScene = require('./js/HelloWorldSceneAR');
+var InitialARScene = require('./js/MainARScene');
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
@@ -48,12 +48,14 @@ export default class ViroSample extends Component {
 
     this.state = {
       sharedProps : sharedProps,
+      onHoverCallback: this._onHoverCallback,
       visible1: true,
       visible2:true,
       text:"Nao achou",
     }
     this._getARNavigator = this._getARNavigator.bind(this);
     this._exitViro = this._exitViro.bind(this);
+    this._onHoverCallback = this._onHoverCallback.bind(this)
   }
 
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
@@ -72,7 +74,6 @@ export default class ViroSample extends Component {
             style ={{flex:1}}
             initialScene={{scene: InitialARScene}}
             viroAppProps={this.state}
-            objectHover={(state, obj)=>console.log(state, obj)}
             />
         <View style={localStyles.crosshair}/>
         <View style={localStyles.centerTextView}>
@@ -97,6 +98,11 @@ export default class ViroSample extends Component {
       </View>
 
     );
+  }
+
+  _onHoverCallback(source, isHovering){
+    console.log(source, isHovering)
+
   }
   // This function "exits" Viro by setting the navigatorType to UNSET.
   _exitViro() {
